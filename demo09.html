@@ -30,8 +30,88 @@
 			}
 		}) ;
 
+		function SplitPane(props){
+			return (
+				<div className = "SplitPane">
+					<div className="SplitPane-left">
+						{props.left}
+					</div>
+					<div className="SplitPane-right">
+						{props.right}
+					</div>
+				</div>	
+			);
+		}
+
+		function App(){
+			return (
+				<SplitPane left={
+					<Content />
+				} right={
+					<Chat />
+				} />
+			)
+		}
+
+		function Content(props){
+			return <h2>i'm cool!</h2>
+		}
+
+		function Chat(props) {
+			return <p>you are fool!</p>
+		}
+
+		function FancyBorder(props) {
+			return (
+				<div className={'FancyBorder FancyBorder-' + props.color}>
+					{props.children}
+				</div>
+			)
+		}
+		function Dialog(props) {
+			return (
+				<FancyBorder color="blue">
+					<h1 className="Dialog-title">
+						{props.title}
+					</h1>
+					<p className="Dialog-message">
+						{props.message}
+					</p>
+					{props.children}
+				</FancyBorder>
+			);
+		}
+
+		class SignUpDialog extends React.Component {
+			constructor(props){
+				super(props);
+				this.state = {login : ''};
+				this.handleChange = this.handleChange.bind(this);
+				this.handleSignUp = this.handleSignUp.bind(this);
+			}
+
+			handleChange(props) {
+				this.setState({login : props.target.value});
+			}
+
+			handleSignUp(props) {
+				alert(`Welcome aboard, ${this.state.login}!`);
+			}
+
+			render() {
+				return (
+					<Dialog title="liezhong" message="i can fly">
+						<input value={this.state.login} onChange={this.handleChange} />
+						<button onClick={this.handleSignUp}>
+							Sign me up
+						</button>
+					</Dialog>
+				)
+			}
+		}
+
 		ReactDOM.render(
-			<Input />,
+			<div><Input /><App /><SignUpDialog /></div>,
 			document.getElementById('root')
 		)
 	</script>
