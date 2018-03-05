@@ -11,6 +11,7 @@
 </head>
 <body>
 	<div id="root"></div>
+	<div id="food"></div>
 	<script type="text/babel">
 	var LikeButton = React.createClass({
 		getInitialState:function(){
@@ -33,6 +34,62 @@
 		<LikeButton />,
 		document.getElementById("root")
 	)
+	</script>
+	<script type="text/babel">
+		const posts = [
+			{id:1 , title: 'Hello World', content : 'Welcome bob!'},
+			{id:1 , title: 'installation' , content : 'surprise cool gay'}
+		];
+
+		const numbers = [1, 2, 3, 4, 5];
+
+		function Blog(props) {
+			const sidebar = (
+				<ul>
+				{props.posts.map((post) => 
+					<li key={post.id}>
+						{post.title}
+					</li>
+					)}
+				</ul>
+
+			);
+
+			const content = props.posts.map((post) => 
+				<div key={post.id}>
+					<h3>{post.title}</h3>
+					<p>{post.content}</p>
+				</div>
+			)
+
+			return (
+				<div>
+					{sidebar}
+				<hr/>
+					{content}
+				</div>
+			)
+		}
+
+		function ListItem(props) {
+			return <li>{props.value}</li>
+		}
+
+		function NumberList(props) {
+			const numbers = props.numbers;
+			const listItems = numbers.map((number, index) => 
+				<ListItem key={index} value={number} />
+			);
+			return (
+				<ul>{listItems}</ul>
+			);
+		}
+
+		ReactDOM.render(
+			<div><NumberList numbers={numbers} /><Blog posts={posts} /></div>,
+			document.getElementById('food')
+		)
+
 	</script>
 </body>
 </html>
